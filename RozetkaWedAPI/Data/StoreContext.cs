@@ -12,5 +12,6 @@ namespace RozetkaWedAPI.Data
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Buyer> Buyers { get; set; }
         public DbSet<Brand> Brands { get; set; }
+
     }
 }

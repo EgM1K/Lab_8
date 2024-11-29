@@ -16,6 +16,7 @@ namespace RozetkaWedAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddDbContext<StoreContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             var app = builder.Build();

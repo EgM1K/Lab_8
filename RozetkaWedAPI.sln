@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RozetkaWedAPI", "RozetkaWedAPI\RozetkaWedAPI.csproj", "{78CC098A-82CA-40F7-83A1-AD3BCE94F55C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab_8_NUnit_Test", "Lab_8_NUnit_Test\Lab_8_NUnit_Test.csproj", "{E888C9FE-3B0E-4F0A-AF8A-CF8BF914430E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{78CC098A-82CA-40F7-83A1-AD3BCE94F55C} = {78CC098A-82CA-40F7-83A1-AD3BCE94F55C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{78CC098A-82CA-40F7-83A1-AD3BCE94F55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78CC098A-82CA-40F7-83A1-AD3BCE94F55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78CC098A-82CA-40F7-83A1-AD3BCE94F55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E888C9FE-3B0E-4F0A-AF8A-CF8BF914430E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E888C9FE-3B0E-4F0A-AF8A-CF8BF914430E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E888C9FE-3B0E-4F0A-AF8A-CF8BF914430E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E888C9FE-3B0E-4F0A-AF8A-CF8BF914430E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@
 using RozetkaWedAPI.Models;
 using RozetkaWedAPI.Servises.Interfaces;
 using Microsoft.EntityFrameworkCore;
+
 namespace RozetkaWedAPI.Servises
 {
     public class ProductService : IProductService
@@ -29,12 +30,10 @@ namespace RozetkaWedAPI.Servises
         {
             var existingProduct = await _context.Products.FindAsync(id);
             if (existingProduct == null) return false;
-
             existingProduct.Name = product.Name;
             existingProduct.Price = product.Price;
             existingProduct.BrandId = product.BrandId;
             existingProduct.CategoryId = product.CategoryId;
-
             await _context.SaveChangesAsync();
             return true;
         }
@@ -42,7 +41,6 @@ namespace RozetkaWedAPI.Servises
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null) return false;
-
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return true;
