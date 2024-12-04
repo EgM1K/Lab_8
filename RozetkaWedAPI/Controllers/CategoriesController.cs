@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RozetkaWedAPI.Models;
 using RozetkaWedAPI.Servises.Interfaces;
 
@@ -29,12 +30,23 @@ namespace RozetkaWedAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var createdCategory = await _categoryService.CreateAsync(category);
             return CreatedAtAction(nameof(GetCategory), new { id = createdCategory.Id }, createdCategory);
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var updatedCategory = await _categoryService.UpdateAsync(id, category);
             if (updatedCategory == null) return NotFound();
             return NoContent();

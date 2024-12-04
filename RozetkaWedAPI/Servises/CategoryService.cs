@@ -48,6 +48,11 @@ namespace RozetkaWebAPI.Services
         }
         public async Task<Category> CreateAsync(Category category)
         {
+            if (await _context.Categories.AnyAsync(c => c.Name == category.Name))
+            {
+                throw new ArgumentException("Category with this name already exists.");
+            }
+
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
             return category;

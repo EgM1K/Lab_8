@@ -2,6 +2,7 @@
 using RozetkaWedAPI.Models;
 using RozetkaWedAPI.Servises.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using RozetkaWebAPI.Models;
 
 namespace RozetkaWedAPI.Servises
 {
@@ -12,6 +13,7 @@ namespace RozetkaWedAPI.Servises
         {
             _context = context;
         }
+
         public async Task<IEnumerable<Product>> GetAllAsync()
         {
             return await _context.Products.Include(p => p.Brand).Include(p => p.Category).ToListAsync();
@@ -22,6 +24,10 @@ namespace RozetkaWedAPI.Servises
         }
         public async Task<Product> CreateAsync(Product product)
         {
+            if (await _context.Products.AnyAsync(c => c.Name == product.Name))
+            {
+                throw new ArgumentException("Product with this name already exists.");
+            }
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return product;

@@ -30,14 +30,29 @@ namespace RozetkaWebAPI.Services
         }
         public async Task<Order?> UpdateAsync(int id, Order updatedOrder)
         {
-            var order = await _context.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
-            if (order == null) return null;
-            order.BuyerName = updatedOrder.BuyerName;
-            order.BuyerEmail = updatedOrder.BuyerEmail;
-            order.OrderDate = updatedOrder.OrderDate;
-            order.OrderItems = updatedOrder.OrderItems;
-            await _context.SaveChangesAsync();
-            return order;
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var order = await _context.Orders.Include(o => o.OrderItems).FirstOrDefaultAsync(o => o.Id == id);
+                if (order == null) return null;
+
+                order.BuyerName = updatedOrder.BuyerName;
+                order.BuyerEmail = updatedOrder.BuyerEmail;
+                order.OrderDate = updatedOrder.OrderDate;
+
+                _context.OrderItems.RemoveRange(order.OrderItems);
+                _context.OrderItems.AddRange(updatedOrder.OrderItems);
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return order;
+            }
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
         public async Task<bool> DeleteAsync(int id)
         {
